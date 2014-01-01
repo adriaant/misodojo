@@ -1,0 +1,57 @@
+body {
+  margin-top: 140px;
+  margin-bottom: 100px;
+  background-color: #feffff;
+}
+
+footer {
+  margin: 50px 0;
+}
+
+p {
+  margin-bottom: 11px;
+}
+
+div#home {
+  height: 600px;
+  background: url(/static/images/fractal.png) no-repeat;
+  padding-left: 610px;
+}
+
+div#home ul {
+  padding-top: 12px;
+}
+div#home li {
+  list-style-type: none;
+}
+div#home li a {
+  display: block;
+  width: 64px;
+  height: 128px;
+}
+
+div#home li.flickr a {
+    background: url(/static/images/icons/flickr.png) no-repeat;
+}
+div#home li.facebook a {
+    background: url(/static/images/icons/facebook.png) no-repeat;
+}
+div#home li.github a {
+    background: url(/static/images/icons/github.png) no-repeat;
+}
+div#home li.linkedin a {
+    background: url(/static/images/icons/linkedin.png) no-repeat;
+}
+div#home li.twitter a {
+    background: url(/static/images/icons/twitter.png) no-repeat;
+}
+
+img.rounded {
+    -webkit-border-top-left-radius: 200px;
+    -webkit-border-bottom-right-radius: 200px;
+    -moz-border-radius-topleft: 200px;
+    -moz-border-radius-bottomright: 200px;
+    border-top-left-radius: 200px;
+    border-bottom-right-radius: 200px;
+    margin: 12px;
+}

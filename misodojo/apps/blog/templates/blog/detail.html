@@ -1,0 +1,21 @@
+{% extends "blog/blogbase.html" %}
+{% block head_title %}representations{% endblock %}
+
+{% block content %}
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+
+          <h1>{{ post.title }}</h1>
+          <p>{{ post.content|safe }}</p>
+          {% if post.tags.all %}
+            <p>
+              {% for tag in post.tags.all %}
+                <span class="label label-default">{{ tag.name }}</span>
+              {% endfor %}
+            </p>
+            {% endif %}
+          <hr>
+          <p><span class="glyphicon glyphicon-time"></span> Posted on August 24, 2013 at 9:00 PM</p>
+        </div>
+      </div>
+{% endblock %}
