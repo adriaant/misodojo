@@ -51,7 +51,7 @@ LOGGING = {
         'log_file': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(LOG_ROOT, 'django.log'),
+            'filename': '/home/sushi/logs/django.log',
             'maxBytes': '16777216',  # 16megabytes
             'formatter': 'verbose'
         },
