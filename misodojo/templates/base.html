@@ -35,7 +35,7 @@
           <ul class="nav navbar-nav">
             <li{% if request.path_info == '/' %} class="active"{% endif %}><a href="/">Home</a></li>
             <li{% if request.path_info == '/pages/about/' %} class="active"{% endif %}><a href="{% url 'flatpage' url='/about/' %}">About</a></li>
-            <li{% if request.path_info == '/blog/' %} class="active"{% endif %}><a href="/blog">Blog</a></li>
+            <li{% if '/blog/' in request.path_info %} class="active"{% endif %}><a href="/blog">Blog</a></li>
             <li{% if request.path_info == '/pages/contact/' %} class="active"{% endif %}><a href="{% url 'flatpage' url='/contact/' %}">Contact</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
