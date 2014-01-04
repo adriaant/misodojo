@@ -9,7 +9,11 @@ class AutoDateTimeField(models.DateTimeField):
     '''An editable version of created date field, without the hassle
        of overriding save() in the actual models.'''
     def pre_save(self, model_instance, add):
-        return datetime.now()
+        if not add:
+            return getattr(model_instance, self.attname)
+        now = datetime.now()
+        setattr(model_instance, self.attname, now)
+        return now
 
 
 class Post(models.Model):
@@ -23,7 +27,7 @@ class Post(models.Model):
     tags = TaggableManager()
 
     class Meta:
-        ordering = ['created']
+        ordering = ['-created']
 
     def __unicode__(self):
         return self.title

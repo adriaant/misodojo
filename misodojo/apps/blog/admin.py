@@ -5,7 +5,7 @@ from .models import Post
 class PostAdmin(admin.ModelAdmin):
     exclude = ('slug',)
     # fields display on change list
-    list_display = ['title', 'summary']
+    list_display = ['title', 'created']
     # fields to filter the change list with
     list_filter = ['published', 'created', 'modified']
     # fields to search in change list
