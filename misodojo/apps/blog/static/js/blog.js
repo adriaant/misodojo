@@ -7,7 +7,7 @@ var Blog = {
         // record # of posts we already have
         Blog.num_loaded = $(".post").length;
 
-        // hide the non-js pager
+        // hide the non-js pager. By keeping the pager with no JS, google can still index posts.
         $('ul.pager').hide();
 
         // set the trigger
