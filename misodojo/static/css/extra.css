@@ -55,3 +55,10 @@ img.rounded {
     border-bottom-right-radius: 200px;
     margin: 12px;
 }
+
+div#loader {
+  width: 128px;
+  height: 128px;
+  padding: 0;
+  display: none;
+}

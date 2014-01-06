@@ -1,0 +1,16 @@
+{% for post in object_list %}
+  <div class="post">
+    <h2><a href="{% url 'blog_post' post.slug %}">{{ post.title }}</a></h2>
+    <p>{{ post.content|safe }}</p>
+    {% if post.tags.all %}
+    <p class="pull-left">
+      {% for tag in post.tags.all %}
+        <span class="label label-default">{{ tag.name }}</span>
+      {% endfor %}
+    </p>
+    {% endif %}
+    <p class="pull-right small"><span class="glyphicon glyphicon-time"></span> {{ post.created|date:"m/d/Y H:i" }}{% if post.created != post.modified %}, modified on {{ post.modified|date:"m/d/Y H:i" }}{% endif %}</p>
+    <div class="clearfix"></div>
+    <hr>
+  </div>
+{% endfor %}
