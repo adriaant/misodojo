@@ -11,6 +11,8 @@ class BlogView(ListView):
 
     def get_queryset(self):
         m = Post.objects.select_related().filter(published=True)
+        if 'slug' in self.kwargs:  # we need to filter on the tag
+            m = m.filter(tags__slug__in=[self.kwargs['slug']])
         if self.request.is_ajax():
             try:
                 offset = int(self.request.REQUEST.get('offset'))
@@ -19,6 +21,13 @@ class BlogView(ListView):
             if offset:
                 m = m[offset:offset + BlogView.paginate_by]
         return m
+
+    def get_context_data(self, **kwargs):
+        context = super(BlogView, self).get_context_data(**kwargs)
+        if not self.request.is_ajax():
+            context['ranking'] = Post.ranking()
+        context['topic'] = self.kwargs.get('slug', '')
+        return context
 
     def render_to_response(self, context):
         if self.request.is_ajax():
@@ -34,5 +43,4 @@ class PostView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PostView, self).get_context_data(**kwargs)
-        print context
         return context

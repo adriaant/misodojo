@@ -3,7 +3,7 @@
 
 {% block content %}
       <div class="row">
-        <div class="col-lg-8 col-lg-offset-2" id="post_index">
+        <div class="col-lg-8 col-lg-offset-1" id="post_index">
           {% for post in object_list %}
             <!-- blog entry -->
             <div class="post">
@@ -12,7 +12,7 @@
               {% if post.tags.all %}
               <p class="pull-left">
                 {% for tag in post.tags.all %}
-                  <span class="label label-default">{{ tag.name }}</span>
+                  <a href="{% url 'blog_topic' tag.slug %}"><span class="label label-default">{{ tag.name }}</span></a>
                 {% endfor %}
               </p>
               {% endif %}
@@ -37,6 +37,13 @@
             {% endif %}
           </ul>
 
+        </div>
+        <div class="col-lg-2 col-lg-offset-1" id="tag_index">
+          <div class="list-group">
+          {% for t in ranking %}
+            <a href="{% url 'blog_topic' t.slug %}" class="list-group-item{% if t.slug == topic %} active{% endif %}"><span class="badge">{{t.num_times}}</span>{{ t.name }}</a>
+          {% endfor %}
+          </div>
         </div>
         
       </div>

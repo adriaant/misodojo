@@ -35,6 +35,10 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('blog_post', args=[self.slug])
 
+    @classmethod
+    def ranking(cls):
+        return list(Post.tags.most_common()[:20])
+
 
 # http://south.readthedocs.org/en/latest/customfields.html#extending-introspection
 from south.modelsinspector import add_introspection_rules

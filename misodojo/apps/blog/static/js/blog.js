@@ -2,10 +2,14 @@ var Blog = {
 
     loading: false,  // to prevent hitting the ajax function more than necessary
     num_loaded: 0,   // number of posts already shown
+    api_url: '',
 
     init: function() {
         // record # of posts we already have
         Blog.num_loaded = $(".post").length;
+
+        // api endpoint for grabbing posts
+        Blog.api_url = location.pathname + '?offset=';
 
         // hide the non-js pager. By keeping the pager with no JS, google can still index posts.
         $('ul.pager').hide();
@@ -25,7 +29,7 @@ var Blog = {
 
     loadPosts: function() {
         // make request to backend for next batch of posts
-        $.get("/blog/?offset=" + Blog.num_loaded, function(data) {
+        $.get(Blog.api_url + Blog.num_loaded, function(data) {
             if (data.indexOf("<div") >= 0) {
                 $('#loader').hide();
                 $( ".post:last" ).after(data);
