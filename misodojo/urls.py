@@ -5,6 +5,7 @@ from django.conf import settings
 from django.conf.urls import patterns, url, include
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from django.views.decorators.cache import cache_page
 from django.contrib import admin
 
 admin.autodiscover()
@@ -14,9 +15,9 @@ admin.autodiscover()
 #==============================================================================
 
 urlpatterns = patterns('',
-    # pages
+    # index
     url(r'^$',
-        TemplateView.as_view(template_name='home.html'),
+        cache_page(60 * 15)(TemplateView.as_view(template_name='home.html')),
         name="home"),
 
     # grappelli

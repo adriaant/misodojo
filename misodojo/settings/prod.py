@@ -14,6 +14,17 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+        'TIMEOUT': 300,
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000
+        }
+    }
+}
+
 ALLOWED_HOSTS = ['.infinite-sushi.com']
 MEDIA_ROOT = "/home/sushi/media"
 STATIC_ROOT = "/home/sushi/static"

@@ -1,8 +1,9 @@
 from django.views.generic import DetailView, ListView
+from core.mixins import CachinMixin
 from .models import *
 
 
-class BlogView(ListView):
+class BlogView(CachinMixin, ListView):
     """Blog index view"""
     model = Post
     paginate_by = 5
@@ -35,7 +36,7 @@ class BlogView(ListView):
         return ListView.render_to_response(self, context)
 
 
-class PostView(DetailView):
+class PostView(CachinMixin, DetailView):
     """Blog post view"""
     http_method_names = ['get']
     template_name = 'blog/detail.html'
