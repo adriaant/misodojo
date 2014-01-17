@@ -3,6 +3,7 @@
 *.pot
 *.pyc
 secrets.py
+fabfile.py
 
 docs/_build
 var/*
