@@ -62,3 +62,11 @@ div#loader {
   padding: 0;
   display: none;
 }
+
+input#id_q {
+  width: 150px;
+}
+
+.highlighted {
+    background-color: #ff9b94;
+}

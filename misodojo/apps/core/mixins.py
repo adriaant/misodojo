@@ -22,7 +22,6 @@ class CachinMixin(object):
         # Check whether the response data is in the cache.
         key = self.get_cache_key(request)
         response = cache.get(key) or None
-
         if response is not None:
             return response
 

@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.core.cache import cache
 from autoslug import AutoSlugField
 from taggit.managers import TaggableManager
 
@@ -37,7 +38,13 @@ class Post(models.Model):
 
     @classmethod
     def ranking(cls):
-        return list(Post.tags.most_common()[:20])
+        cache_key = 'tag_ranking'
+        ranking_list = cache.get(cache_key) or None
+        if ranking_list is None:
+            l = list(Post.tags.most_common()[:20])
+            ranking_list = sorted(l, key=lambda x: (-x.num_times, x.name))
+            cache.set(cache_key, ranking_list, 3600)
+        return ranking_list
 
 
 # http://south.readthedocs.org/en/latest/customfields.html#extending-introspection

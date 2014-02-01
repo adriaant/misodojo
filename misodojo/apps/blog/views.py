@@ -1,4 +1,5 @@
 from django.views.generic import DetailView, ListView
+from haystack.forms import SearchForm
 from core.mixins import CachinMixin
 from .models import *
 
@@ -28,6 +29,7 @@ class BlogView(CachinMixin, ListView):
         if not self.request.is_ajax():
             context['ranking'] = Post.ranking()
         context['topic'] = self.kwargs.get('slug', '')
+        context['form'] = SearchForm()
         return context
 
     def render_to_response(self, context):

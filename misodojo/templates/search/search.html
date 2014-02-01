@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load bootstrap3 highlight %}
+
+{% block content %}
+  <form method="get" action="{% url 'haystack_search' %}" role="form" class="form-inline">
+    {% bootstrap_form form layout="inline" %}
+    {% buttons %}<button type="submit" class="btn btn-primary">{% bootstrap_icon "search" %}</button>{% endbuttons %}
+  </form>
+
+  {% if query %}
+    <h3>Results</h3>
+    {% for result in page.object_list %}
+      <p>
+        <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
+        {% highlight result.object.content with query %}
+      </p>
+    {% empty %}
+      <p>No results found.</p>
+    {% endfor %}
+
+    {% if page.has_previous or page.has_next %}
+    <div>
+    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+    |
+    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+    </div>
+    {% endif %}
+  {% endif %}
+{% endblock %}

@@ -80,10 +80,20 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 #==============================================================================
+# Haystack configuration
+#==============================================================================
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.realpath(os.path.join(VAR_ROOT, "whoosh_index"))
+    },
+}
+
+#==============================================================================
 # Logging
 #==============================================================================
 
-# Logging configuration.
 # See http://docs.djangoproject.com/en/dev/topics/logging for more details.
 LOGGING = {
     'version': 1,

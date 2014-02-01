@@ -1,4 +1,5 @@
 {% extends "blog/blogbase.html" %}
+{% load bootstrap3 %}
 {% block head_title %}representations{% endblock %}
 
 {% block content %}
@@ -38,14 +39,22 @@
           </ul>
 
         </div>
-        <div class="col-lg-2 col-lg-offset-1" id="tag_index">
-          <div class="list-group">
-          {% for t in ranking %}
-            <a href="{% url 'blog_topic' t.slug %}" class="list-group-item{% if t.slug == topic %} active{% endif %}"><span class="badge">{{t.num_times}}</span>{{ t.name }}</a>
-          {% endfor %}
+        <div class="col-lg-2 col-lg-offset-1">
+          <div class="row">
+            <form method="get" action="{% url 'haystack_search' %}" role="form" class="form-inline">
+              {% bootstrap_form form layout="inline" %}
+              {% buttons %}<button type="submit" class="btn btn-primary">{% bootstrap_icon "search" %}</button>{% endbuttons %}
+            </form>
+          </div>
+          <div class="row">&nbsp;</div>
+          <div class="row" id="tag_index">
+            <div class="list-group">
+            {% for t in ranking %}
+              <a href="{% url 'blog_topic' t.slug %}" class="list-group-item{% if t.slug == topic %} active{% endif %}"><span class="badge">{{t.num_times}}</span>{{ t.name }}</a>
+            {% endfor %}
+            </div>
           </div>
         </div>
-        
       </div>
       
       <hr>

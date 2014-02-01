@@ -84,11 +84,6 @@ TEMPLATE_DIRS = (
     os.path.realpath(os.path.join(PROJECT_DIR, "templates")),
 )
 
-# Optionally, create missing directories where files could be written.
-#for d in (VAR_ROOT, LOCALE_ROOT, LOG_ROOT, MEDIA_ROOT, STATIC_ROOT):
-#    if not os.path.exists(d):
-#        os.mkdir(d)
-
 # append the apps to the path so we can list app names under 'INSTALLED_APPS'
 sys.path.append(os.path.join(PROJECT_DIR, 'apps'))
 
@@ -151,6 +146,8 @@ INSTALLED_APPS = (
     'crispy_forms',  # Form layouts
     'south',
     'taggit',
+    'haystack',
+    'bootstrap3',
     'blog',
     'core',
 )
@@ -165,3 +162,14 @@ INSTALLED_APPS = (
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 AUTOSLUG_SLUGIFY_FUNCTION = "slugify.slugify"
+
+BOOTSTRAP3 = {
+    'include_jquery': False,
+    'jquery_url': '/static/js/jquery.min.js',
+    'base_url': '/static/bootstrap/',
+    'css_url': '/static/bootstrap/css/bootstrap.min.css',
+    'theme_url': '/static/bootstrap/css/bootstrap-theme.min.css',
+    'javascript_url': '/static/bootstrap/js/bootstrap.min.js',
+    'horizontal_label_class': 'col-md-1',
+    'horizontal_field_class': 'col-md-2',
+}
