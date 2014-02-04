@@ -29,6 +29,16 @@ ALLOWED_HOSTS = ['.infinite-sushi.com']
 MEDIA_ROOT = "/home/sushi/media"
 STATIC_ROOT = "/home/sushi/static"
 
+#==============================================================================
+# Haystack configuration
+#==============================================================================
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': "/home/sushi/data/whoosh_index"
+    },
+}
 
 #==============================================================================
 # Error & logging
