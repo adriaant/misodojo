@@ -1,5 +1,5 @@
-from datetime import datetime
 from django.db import models
+from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from autoslug import AutoSlugField
@@ -12,7 +12,7 @@ class AutoDateTimeField(models.DateTimeField):
     def pre_save(self, model_instance, add):
         if not add:
             return getattr(model_instance, self.attname)
-        now = datetime.now()
+        now = timezone.now()
         setattr(model_instance, self.attname, now)
         return now
 
