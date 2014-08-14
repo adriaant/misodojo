@@ -1,10 +1,15 @@
+# -*-*- encoding: utf-8 -*-*-
+# pylint: disable=E1101,R0901
 from django.views.generic import DetailView, ListView
+from django.core.urlresolvers import reverse
+from django.contrib.syndication.views import Feed
+from django.utils.feedgenerator import Atom1Feed
 from haystack.forms import SearchForm
-from core.mixins import CachinMixin
-from .models import *
+# from core.mixins import CachinMixin  # Using Cloudflare for caching
+from .models import Post
 
 
-class BlogView(CachinMixin, ListView):
+class BlogView(ListView):  # was: CachinMixin, ListView
     """Blog index view"""
     model = Post
     paginate_by = 5
@@ -38,7 +43,7 @@ class BlogView(CachinMixin, ListView):
         return ListView.render_to_response(self, context)
 
 
-class PostView(CachinMixin, DetailView):
+class PostView(DetailView):  # was: CachinMixin, DetailView
     """Blog post view"""
     http_method_names = ['get']
     template_name = 'blog/detail.html'
@@ -47,3 +52,31 @@ class PostView(CachinMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(PostView, self).get_context_data(**kwargs)
         return context
+
+
+class RssSiteFeed(Feed):
+    """Support for feeds."""
+    title = "infinite sushi"
+    link = "/feed/"
+    description = "Latest posts."
+
+    def items(self):
+        return Post.objects.select_related().filter(published=True).order_by('-created')[:5]
+
+    def item_description(self, item):
+        return item.summary
+
+class AtomEntryCustomFeed(Atom1Feed):
+    """Atom feed with content element."""
+    def add_item_elements(self, handler, item):
+        super(AtomEntryCustomFeed, self).add_item_elements(handler, item)
+        handler.addQuickElement(u"content", item['content'])
+
+
+class AtomSiteFeed(RssSiteFeed):
+    feed_type = AtomEntryCustomFeed
+    subtitle = RssSiteFeed.description
+
+    def item_extra_kwargs(self, item):
+        """Add the 'content' field of the 'Entry' item, to be used by the custom feed generator."""
+        return {'content': item.content}

@@ -1,3 +1,4 @@
+# -*-*- encoding: utf-8 -*-*-
 from django.conf.urls import (patterns, url)
 from haystack.forms import SearchForm
 from haystack.views import SearchView, search_view_factory
@@ -24,5 +25,15 @@ urlpatterns += patterns('',
         regex=r'^(?P<slug>[\w\-]+)/$',
         view=PostView.as_view(),
         name="blog_post"
+    ),
+    url(
+        regex=r'^feed/rss/$',
+        view=RssSiteFeed(),
+        name="rss_feed"
+    ),
+    url(
+        regex=r'^feed/atom/$',
+        view=AtomSiteFeed(),
+        name="atom_feed"
     ),
 )

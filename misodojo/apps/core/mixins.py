@@ -1,3 +1,4 @@
+# -*-*- encoding: utf-8 -*-*-
 import hashlib
 from django.conf import settings
 from django.core.cache import cache

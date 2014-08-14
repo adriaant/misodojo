@@ -1,3 +1,4 @@
+# -*-*- encoding: utf-8 -*-*-
 from django.utils import timezone
 from haystack import indexes
 from .models import Post
