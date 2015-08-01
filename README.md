@@ -34,8 +34,8 @@ pip install -e .
 
 mv misodojo/settings/secrets.py.example misodojo/settings/secrets.py 
 
-manage.py syncdb --migrate
-manage.py createsuperuser
+python manage.py migrate
+python manage.py createsuperuser
 ```
 
 
@@ -51,26 +51,16 @@ Initial installation instructions (including how to build the documentation as H
 ### Static files 
 
 ```
-collectstatic -l
+python manage.py collectstatic -l
 ```
 
 ### Database
 
 ```
-syncdb --migrate
-dumpdata --indent=2 <app_name> > <fixture_name>.json
-loaddata <fixture_name>
+python manage.py migrate
+python manage.py dumpdata --indent=2 <app_name> > <fixture_name>.json
+python manage.py loaddata <fixture_name>
 ```
-
-### South
-
-```
-schemamigration <app_name> --initial
-schemamigration <app_name> --auto
-migrate <app_name>
-```
-
-[South command reference](http://south.readthedocs.org/en/latest/commands.html)
 
 ### Diagrams
 
