@@ -8,9 +8,9 @@ import os
 from .base import *  # pylint: disable=W0614,W0401
 
 
-#==============================================================================
+# ==============================================================================
 # Generic Django project settings
-#==============================================================================
+# ==============================================================================
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -38,50 +38,53 @@ CACHES = {
     }
 }
 
-#==============================================================================
+# ==============================================================================
 # WSGI
-#==============================================================================
+# ==============================================================================
 
 WSGI_APPLICATION = "misodojo.wsgi.dev.application"
 
-#==============================================================================
+# ==============================================================================
 # Email backend
-#==============================================================================
+# ==============================================================================
 
 # Discard all emails sent.
 EMAIL_BACKEND = "django.core.mail.backends.dummy.EmailBackend"
 
-#==============================================================================
+# ==============================================================================
 # Debugging
-#==============================================================================
+# ==============================================================================
 # app: debug_toolbar
 
 INSTALLED_APPS += ("debug_toolbar",)
 MIDDLEWARE_CLASSES += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
 INTERNAL_IPS = ("127.0.0.1",)
-DEBUG_TOOLBAR_PANELS = (
-    "debug_toolbar.panels.version.VersionDebugPanel",
-    "debug_toolbar.panels.timer.TimerDebugPanel",
-    "debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel",
-    "debug_toolbar.panels.headers.HeaderDebugPanel",
-    "debug_toolbar.panels.request_vars.RequestVarsDebugPanel",
-    "debug_toolbar.panels.template.TemplateDebugPanel",
-    "debug_toolbar.panels.sql.SQLDebugPanel",
-    "debug_toolbar.panels.signals.SignalDebugPanel",
-    "debug_toolbar.panels.logger.LoggingPanel",
-)
+DEBUG_TOOLBAR_PANELS = [
+    'debug_toolbar.panels.versions.VersionsPanel',
+    'debug_toolbar.panels.timer.TimerPanel',
+    'debug_toolbar.panels.settings.SettingsPanel',
+    'debug_toolbar.panels.headers.HeadersPanel',
+    'debug_toolbar.panels.request.RequestPanel',
+    'debug_toolbar.panels.sql.SQLPanel',
+    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+    'debug_toolbar.panels.templates.TemplatesPanel',
+    'debug_toolbar.panels.cache.CachePanel',
+    'debug_toolbar.panels.signals.SignalsPanel',
+    'debug_toolbar.panels.logging.LoggingPanel',
+    'debug_toolbar.panels.redirects.RedirectsPanel',
+]
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
-    #"SHOW_TOOLBAR_CALLBACK": custom_show_toolbar,
-    #"EXTRA_SIGNALS": ["project.signals.MySignal"],
-    #"HIDE_DJANGO_SQL": True,
-    #"SHOW_TEMPLATE_CONTEXT": True,
-    #"TAG": "body",
+    # "SHOW_TOOLBAR_CALLBACK": custom_show_toolbar,
+    # "EXTRA_SIGNALS": ["project.signals.MySignal"],
+    # "HIDE_DJANGO_SQL": True,
+    # "SHOW_TEMPLATE_CONTEXT": True,
+    # "TAG": "body",
 }
 
-#==============================================================================
+# ==============================================================================
 # Haystack configuration
-#==============================================================================
+# ==============================================================================
 
 HAYSTACK_CONNECTIONS = {
     'default': {
@@ -90,9 +93,9 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
-#==============================================================================
+# ==============================================================================
 # Logging
-#==============================================================================
+# ==============================================================================
 
 # See http://docs.djangoproject.com/en/dev/topics/logging for more details.
 LOGGING = {
@@ -123,7 +126,7 @@ LOGGING = {
         'log_file': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(LOG_ROOT, 'django.log'),
+            'filename': '/tmp/django.log',
             'maxBytes': '16777216',  # 16megabytes
             'formatter': 'verbose'
         },
@@ -142,9 +145,9 @@ LOGGING = {
     }
 }
 
-#==============================================================================
+# ==============================================================================
 # My personal settings
-#==============================================================================
+# ==============================================================================
 
 try:
     from .mine import *  # pylint: disable=W0614,W0401

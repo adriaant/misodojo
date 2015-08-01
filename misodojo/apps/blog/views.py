@@ -1,7 +1,6 @@
 # -*-*- encoding: utf-8 -*-*-
 # pylint: disable=E1101,R0901
 from django.views.generic import DetailView, ListView
-from django.core.urlresolvers import reverse
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed
 from haystack.forms import SearchForm
@@ -65,6 +64,7 @@ class RssSiteFeed(Feed):
 
     def item_description(self, item):
         return item.summary
+
 
 class AtomEntryCustomFeed(Atom1Feed):
     """Atom feed with content element."""

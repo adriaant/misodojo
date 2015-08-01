@@ -11,9 +11,9 @@ import misodojo as project_module
 from django.conf.global_settings import *   # pylint: disable=W0614,W0401
 from .secrets import *  # passwords and stuff, things you wouldn't put under source control
 
-#==============================================================================
+# ==============================================================================
 # Generic Django project settings
-#==============================================================================
+# ==============================================================================
 
 SITE_ID = 1
 
@@ -41,9 +41,9 @@ LANGUAGES = (
 ALLOWED_HOSTS = []
 
 
-#==============================================================================
+# ==============================================================================
 # Directories
-#==============================================================================
+# ==============================================================================
 # Best Practice: The suffix ``_ROOT`` is reserved for writable locations.
 
 # Absolute filesystem path to the project module.
@@ -87,9 +87,9 @@ TEMPLATE_DIRS = (
 # append the apps to the path so we can list app names under 'INSTALLED_APPS'
 sys.path.append(os.path.join(PROJECT_DIR, 'apps'))
 
-#==============================================================================
+# ==============================================================================
 # Project URLS and media settings
-#==============================================================================
+# ==============================================================================
 
 # for Grappelli we need to explictly have the right order
 STATICFILES_FINDERS = (
@@ -112,26 +112,32 @@ MEDIA_URL = BASE_URL + "media/"
 # Examples: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = BASE_URL + "static/"
 
-#==============================================================================
+# ==============================================================================
 # Templates
-#==============================================================================
+# ==============================================================================
 
 TEMPLATE_CONTEXT_PROCESSORS += (
     "django.core.context_processors.request",  # for Grappelli
 )
 
-#==============================================================================
+# ==============================================================================
 # Middleware
-#==============================================================================
+# ==============================================================================
 
-MIDDLEWARE_CLASSES += (
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
-#==============================================================================
+# ==============================================================================
 # Apps
-#==============================================================================
+# ==============================================================================
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -144,7 +150,6 @@ INSTALLED_APPS = (
     'grappelli',
     'django.contrib.admin',
     'crispy_forms',  # Form layouts
-    'south',
     'taggit',
     'haystack',
     'bootstrap3',
@@ -152,13 +157,13 @@ INSTALLED_APPS = (
     'core',
 )
 
-#==============================================================================
+# ==============================================================================
 # Miscellaneous project settings
-#==============================================================================
+# ==============================================================================
 
-#==============================================================================
+# ==============================================================================
 # Third party app settings
-#==============================================================================
+# ==============================================================================
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 AUTOSLUG_SLUGIFY_FUNCTION = "slugify.slugify"

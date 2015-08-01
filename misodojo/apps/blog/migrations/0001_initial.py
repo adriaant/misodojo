@@ -1,44 +1,34 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+import autoslug.fields
+import blog.models
+import taggit.managers
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'Post'
-        db.create_table(u'blog_post', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('slug', self.gf('autoslug.fields.AutoSlugField')(unique=True, max_length=50, populate_from='title', unique_with=())),
-            ('summary', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('content', self.gf('django.db.models.fields.TextField')()),
-            ('published', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-        ))
-        db.send_create_signal(u'blog', ['Post'])
+    dependencies = [
+        ('taggit', '0001_initial'),
+    ]
 
-
-    def backwards(self, orm):
-        # Deleting model 'Post'
-        db.delete_table(u'blog_post')
-
-
-    models = {
-        u'blog.post': {
-            'Meta': {'ordering': "['-created']", 'object_name': 'Post'},
-            'content': ('django.db.models.fields.TextField', [], {}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'published': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'slug': ('autoslug.fields.AutoSlugField', [], {'unique': 'True', 'max_length': '50', 'populate_from': "'title'", 'unique_with': '()'}),
-            'summary': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        }
-    }
-
-    complete_apps = ['blog']
+    operations = [
+        migrations.CreateModel(
+            name='Post',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('title', models.CharField(max_length=255)),
+                ('slug', autoslug.fields.AutoSlugField(populate_from=b'title', unique=True, editable=False)),
+                ('summary', models.CharField(default=b'', max_length=255, null=True, blank=True)),
+                ('content', models.TextField()),
+                ('published', models.BooleanField(default=True)),
+                ('created', blog.models.AutoDateTimeField(blank=True)),
+                ('modified', models.DateTimeField(auto_now=True)),
+                ('tags', taggit.managers.TaggableManager(to='taggit.Tag', through='taggit.TaggedItem', help_text='A comma-separated list of tags.', verbose_name='Tags')),
+            ],
+            options={
+                'ordering': ['-created'],
+            },
+        ),
+    ]

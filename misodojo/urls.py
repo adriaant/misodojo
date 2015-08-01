@@ -8,11 +8,10 @@ from django.views.generic import TemplateView
 from django.views.decorators.cache import cache_page
 from django.contrib import admin
 
-admin.autodiscover()
 
-#==============================================================================
+# ==============================================================================
 # Application
-#==============================================================================
+# ==============================================================================
 
 urlpatterns = patterns('',
     # index
@@ -32,12 +31,12 @@ urlpatterns = patterns('',
     # flatpages. Use this method, not documented method (commented out)
     # so we can use reverse urls such as e.g. {% url 'flatpage' url='/about/' %}
     url(r'^pages(?P<url>.*)$', 'django.contrib.flatpages.views.flatpage', name='flatpage'),
-    #url(r'^pages/', include('django.contrib.flatpages.urls')),
+    # url(r'^pages/', include('django.contrib.flatpages.urls')),
 )
 
-#==============================================================================
+# ==============================================================================
 # Serving static files during development (only in debug mode)
-#==============================================================================
+# ==============================================================================
 
 if settings.DEBUG and settings.MEDIA_ROOT:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

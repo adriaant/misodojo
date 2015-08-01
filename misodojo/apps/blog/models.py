@@ -17,6 +17,11 @@ class AutoDateTimeField(models.DateTimeField):
         setattr(model_instance, self.attname, now)
         return now
 
+    def deconstruct(self):
+        """ Support Django 1.7+ migrations """
+        return super(
+            AutoDateTimeField, self).deconstruct()
+
 
 class Post(models.Model):
     title = models.CharField(max_length=255, null=False, blank=False)
@@ -46,8 +51,3 @@ class Post(models.Model):
             ranking_list = sorted(l, key=lambda x: (-x.num_times, x.name))
             cache.set(cache_key, ranking_list, 3600)
         return ranking_list
-
-
-# http://south.readthedocs.org/en/latest/customfields.html#extending-introspection
-from south.modelsinspector import add_introspection_rules
-add_introspection_rules([], ["^blog\.models\.AutoDateTimeField"])
