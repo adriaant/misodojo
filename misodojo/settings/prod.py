@@ -26,8 +26,8 @@ CACHES = {
 }
 
 ALLOWED_HOSTS = ['.infinite-sushi.com']
-MEDIA_ROOT = "/home/sushi/media"
-STATIC_ROOT = "/home/sushi/static"
+MEDIA_ROOT = "/home/mochi/media"
+STATIC_ROOT = "/home/mochi/static"
 
 # ==============================================================================
 # Haystack configuration
@@ -36,7 +36,7 @@ STATIC_ROOT = "/home/sushi/static"
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': "/home/sushi/data/whoosh_index"
+        'PATH': "/home/mochi/data/whoosh_index"
     },
 }
 
@@ -72,7 +72,7 @@ LOGGING = {
         'log_file': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '/home/sushi/logs/django.log',
+            'filename': '/home/mochi/logs/django.log',
             'maxBytes': '16777216',  # 16megabytes
             'formatter': 'verbose'
         },
