@@ -1,6 +1,7 @@
 from django import template
 from django.contrib.flatpages.models import FlatPage
 from django.core.urlresolvers import reverse
+from django.utils.safestring import mark_safe
 
 register = template.Library()
 
@@ -17,4 +18,4 @@ def pages_list(curpath):
         h += u'><a href="'
         h += reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': u})
         h += u'">' + t + u'</a></li>'
-    return h
+    return mark_safe(h)
