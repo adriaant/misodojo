@@ -10,7 +10,10 @@ var/*
 !var/locale/
 fixtures
 server
-
+vagrant
+.python-version
+ansible.cfg
+hosts
 *.sublime-*
 *.mine.*
 mine.*
